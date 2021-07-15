@@ -104,6 +104,7 @@ async function vercelDeploy(ref, commit) {
     ...vercelArgs.split(/ +/),
     '-t',
     vercelToken,
+    '--debug',
     '-m',
     `githubCommitSha=${context.sha}`,
     '-m',
