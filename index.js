@@ -364,18 +364,19 @@ async function run() {
   }
 
   const deploymentUrl = await vercelDeploy(ref, commit);
+  core.debug("Stop here!!!!");
 
-  if (deploymentUrl) {
-    core.info('set preview-url output');
-    if (aliasDomains && aliasDomains.length) {
-      core.info('set preview-url output as first alias');
-      core.setOutput('preview-url', `https://${aliasDomains[0]}`);
-    } else {
-      core.setOutput('preview-url', deploymentUrl);
-    }
-  } else {
-    core.warning('get preview-url error');
-  }
+  // if (deploymentUrl) {
+    // core.info('set preview-url output');
+    // if (aliasDomains && aliasDomains.length) {
+      // core.info('set preview-url output as first alias');
+      // core.setOutput('preview-url', `https://${aliasDomains[0]}`);
+    // } else {
+      // core.setOutput('preview-url', deploymentUrl);
+    // }
+  // } else {
+    // core.warning('get preview-url error');
+  // }
 
   // const deploymentName =
     // vercelProjectName || (await vercelInspect(deploymentUrl));
@@ -404,6 +405,8 @@ async function run() {
   } else {
     core.info('comment : disabled');
   }
+
+  core.debug("The end");
 }
 
 run().catch(error => {
