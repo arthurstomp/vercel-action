@@ -121,7 +121,7 @@ async function vercelDeploy(ref, commit) {
     '-m',
     `githubCommitRepo=${context.repo.repo}`,
     '-m',
-    `githubCommitMessage=${commit}`,
+    `githubCommitMessage="${commit}"`,
     '-m',
     `githubCommitRef=${ref}`,
   ];
