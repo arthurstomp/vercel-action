@@ -340,9 +340,11 @@ async function run() {
     .toString()
     .trim();
   if (github.context.eventName === 'push') {
+    core.debug('Github push event');
     const pushPayload = github.context.payload;
     core.debug(`The head commit is: ${pushPayload.head_commit}`);
   } else if (isPullRequestType(github.context.eventName)) {
+    core.debug('Github pull request event');
     const pullRequestPayload = github.context.payload;
     const pr =
       pullRequestPayload.pull_request || pullRequestPayload.pull_request_target;
@@ -363,6 +365,7 @@ async function run() {
     }
   }
 
+  core.debug("Before deploy!!!!");
   const deploymentUrl = await vercelDeploy(ref, commit);
   core.debug("Stop here!!!!");
 
