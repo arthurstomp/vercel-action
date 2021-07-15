@@ -162,6 +162,7 @@ async function vercelInspect(deploymentUrl) {
     core.info('using scope');
     args.push('--scope', vercelScope);
   }
+  await new Promise(r => setTimeout(r, 60000));
   await exec.exec('npx', args, options);
 
   const match = myError.match(/^\s+name\s+(.+)$/m);
