@@ -162,7 +162,6 @@ async function vercelInspect(deploymentUrl) {
     core.info('using scope');
     args.push('--scope', vercelScope);
   }
-  await new Promise(r => setTimeout(r, 60000));
   await exec.exec('npx', args, options);
 
   const match = myError.match(/^\s+name\s+(.+)$/m);
@@ -378,14 +377,14 @@ async function run() {
     core.warning('get preview-url error');
   }
 
-  const deploymentName =
-    vercelProjectName || (await vercelInspect(deploymentUrl));
-  if (deploymentName) {
-    core.info('set preview-name output');
-    core.setOutput('preview-name', deploymentName);
-  } else {
-    core.warning('get preview-name error');
-  }
+  // const deploymentName =
+    // vercelProjectName || (await vercelInspect(deploymentUrl));
+  // if (deploymentName) {
+    // core.info('set preview-name output');
+    // core.setOutput('preview-name', deploymentName);
+  // } else {
+    // core.warning('get preview-name error');
+  // }
 
   if (aliasDomains.length) {
     core.info('alias domains to this deployment');
@@ -395,10 +394,12 @@ async function run() {
   if (githubComment && githubToken) {
     if (context.issue.number) {
       core.info('this is related issue or pull_request');
-      await createCommentOnPullRequest(sha, deploymentUrl, deploymentName);
+      // await createCommentOnPullRequest(sha, deploymentUrl, deploymentName);
+      await createCommentOnPullRequest(sha, deploymentUrl, "Pull request deployment");
     } else if (context.eventName === 'push') {
       core.info('this is push event');
-      await createCommentOnCommit(sha, deploymentUrl, deploymentName);
+      // await createCommentOnCommit(sha, deploymentUrl, deploymentName);
+      await createCommentOnCommit(sha, deploymentUrl, "Push deployment");
     }
   } else {
     core.info('comment : disabled');
